@@ -1,0 +1,109 @@
+openapi: 3.0.3
+info:
+  title: STD23009 - TD
+  version: '1.0.0'
+servers:
+  - url: https://localhost.football-competition.com
+paths:
+  /teams:
+    get:
+      parameters:
+        - in: query
+          name: teamName
+          schema:
+            type: string
+          description: Filter teams by their name
+        - in: query
+          name: page
+          schema:
+            type: integer
+          required: true
+        - in: query
+          name: pageSize
+          schema:
+            type: integer
+          required: true
+      responses:
+        200:
+          description: List of teams
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: './components.yaml#/components/schemas/Team'
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './components.yaml#/components/schemas/TeamInput'
+        required: true
+      responses:
+        201:
+          description: Team created
+          content:
+            application/json:
+              schema:
+                $ref: './components.yaml#/components/schemas/Team'
+  /teams/{teamName}/competitions:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: './components.yaml#/components/schemas/CompetitionReference'
+        required: true
+      responses:
+        200:
+          description: Competitions associated with the team
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: './components.yaml#/components/schemas/Competition'
+
+  /teams/{teamName}/players:
+    get:
+      parameters:
+        - in: query
+          name: playerName
+          schema:
+            type: string
+          description: Filter players by their name
+        - in: query
+          name: page
+          schema:
+            type: integer
+          required: true
+        - in: query
+          name: pageSize
+          schema:
+            type: integer
+          required: true
+      responses:
+        200:
+          description: List of players in a team
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: './components.yaml#/components/schemas/Player'
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './components.yaml#/components/schemas/PlayerInput'
+        required: true
+      responses:
+        201:
+          description: Player created
+          content:
+            application/json:
+              schema:
+                $ref: './components.yaml#/components/schemas/Player'

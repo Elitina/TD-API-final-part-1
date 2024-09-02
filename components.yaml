@@ -1,0 +1,67 @@
+components:
+  schemas:
+    Team:
+      type: object
+      properties:
+        teamName:
+          type: string
+        teamSlogan:
+          type: string
+        competitionsParticipated:
+          type: array
+          items:
+            $ref: '#/components/schemas/Competition'
+        players:
+          type: array
+          items:
+            $ref: '#/components/schemas/Player'
+    TeamInput:
+      type: object
+      properties:
+        teamName:
+          type: string
+        teamSlogan:
+          type: string
+    Competition:
+      type: object
+      properties:
+        competitionName:
+          type: string
+        location:
+          type: string
+    CompetitionInput:
+      type: object
+      properties:
+        competitionName:
+          type: string
+        location:
+          type: string
+    CompetitionReference:
+      type: object
+      properties:
+        competitionName:
+          type: string
+    Player:
+      type: object
+      properties:
+        playerName:
+          type: string
+        playerNumber:
+          type: integer
+        strongFoot:
+          type: string
+          enum:
+            - Left
+            - Right
+    PlayerInput:
+      type: object
+      properties:
+        playerName:
+          type: string
+        playerNumber:
+          type: integer
+        strongFoot:
+          type: string
+          enum:
+            - Left
+            - Right

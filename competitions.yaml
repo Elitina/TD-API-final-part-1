@@ -1,0 +1,43 @@
+openapi: 3.0.3
+info:
+  title: STD23009 - TD
+  version: '1.0.0'
+servers:
+  - url: https://localhost.football-competition.com
+paths:
+  /competitions:
+    get:
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+          required: true
+        - in: query
+          name: pageSize
+          schema:
+            type: integer
+          required: true
+      responses:
+        200:
+          description: List of competitions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: './components.yaml#/components/schemas/Competition'
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './components.yaml#/components/schemas/CompetitionInput'
+        required: true
+      responses:
+        201:
+          description: Competition created
+          content:
+            application/json:
+              schema:
+                $ref: './components.yaml#/components/schemas/Competition'
